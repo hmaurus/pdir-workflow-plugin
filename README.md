@@ -5,11 +5,7 @@ Plugin Claude Code para o método PDIR (Planejar, Dividir, Implementar, Revisar)
 ## Instalação
 
 ```bash
-# Adicionar marketplace
-/plugin marketplace add hmaurus/pdir-workflow-plugin
-
-# Instalar plugin
-/plugin install pdir-workflow@hmaurus/pdir-workflow-plugin
+/plugin install hmaurus/pdir-workflow-plugin
 ```
 
 ## Comandos
