@@ -4,23 +4,45 @@ Plugin Claude Code para o método PDIR (Planejar, Dividir, Implementar, Revisar)
 
 ## Instalação
 
+### Pré-requisitos
+
+- **Claude Code CLI** instalado e funcionando
+- **GitHub CLI** (`gh`) autenticado:
+  ```bash
+  gh auth status  # verificar
+  gh auth login   # se necessário
+  ```
+- **Git** configurado com acesso ao repositório
+
+### Instalar o Plugin
+
 ```bash
-/plugin install hmaurus/pdir-workflow-plugin
+# 1. Adicionar o marketplace
+/plugin marketplace add hmaurus/pdir-workflow-plugin
+
+# 2. Instalar o plugin
+/plugin install pdir-workflow@hmaurus
+```
+
+### Verificar Instalação
+
+```bash
+/help  # Os comandos /pdir-* devem aparecer na lista
 ```
 
 ## Comandos
 
-| Comando | Descrição |
-|---------|-----------|
-| `/pdir-criar-prd` | descrição → PRD.md |
-| `/pdir-listar-grupos` | PRD → grupos/subgrupos |
-| `/pdir-listar-tarefas` | grupo → lista de tarefas |
-| `/pdir-criar-issue` | tarefa → Issue GitHub |
-| `/pdir-implementar-tarefa` | Issue → branch + código |
-| `/pdir-commit` | commit + push |
-| `/pdir-draft-pr` | cria Draft PR |
-| `/pdir-ready-pr` | marca PR pronto |
-| `/pdir-merge-tarefa` | merge + limpeza |
+| Comando | Descrição | Argumentos |
+|---------|-----------|------------|
+| `/pdir-criar-prd` | descrição → PRD.md | `[descrição]` |
+| `/pdir-listar-grupos` | PRD → grupos/subgrupos | `[arquivo] [grupos\|subgrupos]` |
+| `/pdir-listar-tarefas` | grupo → lista de tarefas | `[arquivo] [grupo]` |
+| `/pdir-criar-issue` | tarefa → Issue GitHub | `[tarefa]` |
+| `/pdir-implementar-tarefa` | Issue → branch + código | `[número-issue]` |
+| `/pdir-commit` | commit + push | - |
+| `/pdir-draft-pr` | cria Draft PR | - |
+| `/pdir-ready-pr` | marca PR pronto | - |
+| `/pdir-merge-tarefa` | merge + limpeza | - |
 
 ## Fluxo PDIR
 
@@ -60,34 +82,62 @@ PRD.md → Grupos → Tarefas → Issue → Implementar → Commit → PR → Me
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## Pré-requisitos
-
-- Claude Code CLI
-- GitHub CLI (`gh`) autenticado
-- Git configurado
-
-## Estrutura
+## Estrutura do Plugin
 
 ```
 pdir-workflow-plugin/
-├── .claude-plugin/plugin.json
+├── .claude-plugin/
+│   └── plugin.json              # Metadados
 ├── commands/
 │   ├── pdir-criar-prd.md
-│   └── pdir/
-│       ├── listar-grupos.md
-│       ├── listar-tarefas.md
-│       ├── criar-issue.md
-│       ├── implementar-tarefa.md
-│       ├── commit.md
-│       ├── draft-pr.md
-│       ├── ready-pr.md
-│       └── merge-tarefa.md
-└── docs/pdir-manual.md
+│   ├── pdir-listar-grupos.md
+│   ├── pdir-listar-tarefas.md
+│   ├── pdir-criar-issue.md
+│   ├── pdir-implementar-tarefa.md
+│   ├── pdir-commit.md
+│   ├── pdir-draft-pr.md
+│   ├── pdir-ready-pr.md
+│   └── pdir-merge-tarefa.md
+└── README.md
 ```
 
-## Documentação
+## Troubleshooting
 
-Veja [docs/pdir-manual.md](docs/pdir-manual.md) para o manual completo.
+### Comandos não aparecem em /help
+
+```bash
+# Reinstalar o plugin
+/plugin uninstall pdir-workflow@hmaurus
+/plugin install pdir-workflow@hmaurus
+
+# Ou reiniciar o Claude Code
+exit
+claude
+```
+
+### Erro "gh: command not found"
+
+```bash
+# Instalar GitHub CLI
+# macOS
+brew install gh
+
+# Ubuntu/Debian
+sudo apt install gh
+
+# Depois autenticar
+gh auth login
+```
+
+### Erro de permissão no GitHub
+
+```bash
+# Verificar autenticação
+gh auth status
+
+# Reautenticar se necessário
+gh auth login --scopes repo,read:org
+```
 
 ## Licença
 
