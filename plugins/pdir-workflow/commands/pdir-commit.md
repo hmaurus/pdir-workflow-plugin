@@ -12,12 +12,14 @@ Sincroniza, commita e envia mudanças para origin.
 
 Informações da branch:
 - Branch atual: !`git branch --show-current`
-- Upstream: !`git rev-parse --abbrev-ref @{u} 2>/dev/null || echo "sem-upstream"`
 - Status: !`git status --short`
 - Diff: !`git diff --stat`
 
-**Se tiver upstream:** execute `git pull --ff-only`
-**Se não tiver upstream:** pule o pull (branch nova)
+Verificar upstream (pode falhar se branch nova):
+!`git rev-parse --abbrev-ref @{u}`
+
+**Se o comando upstream retornou resultado:** execute `git pull --ff-only`
+**Se o comando upstream falhou (branch nova):** pule o pull
 **Se não houver mudanças:** Informar e encerrar.
 
 ### 2. Criar Commit
