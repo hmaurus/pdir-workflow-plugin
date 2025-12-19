@@ -68,4 +68,6 @@ Issue: #[número] - [título]
 Link: [url]
 
 Próximo passo: /pdir-implementar-tarefa [número]
+
+💡 Recomendação: execute /clear antes para começar com contexto limpo.
 ```
